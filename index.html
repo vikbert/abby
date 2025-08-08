@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Abby's Homepage</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap"
+    rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Quicksand', sans-serif;
+      background-color: #fff8f3;
+      color: #5a4634;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    #about {
+      width: 300px;
+      height: 300px;
+      margin: 2rem auto;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(90, 70, 52, 0.3);
+      border: 5px solid #ffb6a6;
+      /* optional, for a warm border */
+    }
+
+    #about img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(1.2) contrast(0.9);
+    }
+
+    /* Floating paw prints background */
+    .paw {
+      position: absolute;
+      font-size: 2rem;
+      opacity: 0.08;
+      animation: floatPaws 20s linear infinite;
+      color: #5a4634;
+    }
+
+    @keyframes floatPaws {
+      from {
+        transform: translateY(100vh) rotate(0deg);
+      }
+
+      to {
+        transform: translateY(-10vh) rotate(360deg);
+      }
+    }
+
+    /* Header with hamburger */
+    header {
+      background: linear-gradient(90deg, #ffdad6, #ffe8d1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.5rem;
+      font-family: 'Pacifico', cursive;
+      color: #5a4634;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+
+    h3 {
+      font-weight: 700;
+    }
+
+    nav {
+      display: flex;
+      gap: 1rem;
+    }
+
+    nav a {
+      font-family: 'Quicksand', sans-serif;
+      color: #5a4634;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .hamburger span {
+      height: 3px;
+      width: 25px;
+      background: #5a4634;
+      margin: 4px 0;
+      border-radius: 5px;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+        flex-direction: column;
+        background: #ffe8d1;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        padding: 1rem;
+        border-radius: 0 0 0 10px;
+      }
+
+      nav.active {
+        display: flex;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+    }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      margin: 2rem auto;
+    }
+
+    .hero img {
+      width: 80%;
+      max-width: 400px;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Description */
+    .description {
+      background-color: #fff1e6;
+      margin: 2rem auto;
+      max-width: 800px;
+      padding: 1.5rem;
+      border-radius: 15px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      line-height: 1.6;
+    }
+
+    /* Slideshow */
+    .slideshow-container {
+      position: relative;
+      max-width: 800px;
+      margin: 2rem auto;
+      height: 600px;
+      /* Fixed height for consistent display */
+    }
+
+    .mySlides {
+      display: none;
+      /* hide all slides initially */
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .mySlides.active {
+      display: block;
+      /* show active slide */
+    }
+
+    .mySlides img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .prev,
+    .next {
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      padding: 16px;
+      color: #5a4634;
+      font-weight: bold;
+      font-size: 18px;
+      border-radius: 0 3px 3px 0;
+      user-select: none;
+      background: rgba(255, 255, 255, 0.7);
+      transform: translateY(-50%);
+      z-index: 10;
+    }
+
+    .next {
+      right: 0;
+      border-radius: 3px 0 0 3px;
+    }
+
+    .dot-container {
+      text-align: center;
+      padding: 10px;
+    }
+
+    .dot {
+      cursor: pointer;
+      height: 12px;
+      width: 12px;
+      margin: 0 5px;
+      background-color: #ddd;
+      border-radius: 50%;
+      display: inline-block;
+      transition: background-color 0.3s ease;
+    }
+
+    .dot.active,
+    .dot:hover {
+      background-color: #ffb6a6;
+    }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      max-width: 800px;
+      margin: 2rem auto;
+    }
+
+    .timeline::after {
+      content: '';
+      position: absolute;
+      width: 4px;
+      background-color: #ffd8c2;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      margin-left: -2px;
+    }
+
+    .timeline-item {
+      padding: 1rem;
+      position: relative;
+      background-color: inherit;
+      width: 50%;
+    }
+
+    .timeline-item::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      right: -10px;
+      background-color: #ffb6a6;
+      border: 3px solid white;
+      top: 15px;
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    .left {
+      left: 0;
+    }
+
+    .right {
+      left: 50%;
+    }
+
+    .right::after {
+      left: -10px;
+    }
+
+    .timeline-content {
+      padding: 1rem;
+      background-color: #fff1e6;
+      position: relative;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .timeline-content span.icon {
+      font-size: 3.5rem;
+    }
+
+    @media screen and (max-width: 600px) {
+      .timeline::after {
+        left: 31px;
+      }
+
+      .timeline-item {
+        width: 100%;
+        padding-left: 70px;
+        padding-right: 25px;
+      }
+
+      .timeline-item::after {
+        left: 15px;
+      }
+
+      .right {
+        left: 0%;
+      }
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #ffe8d1;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Floating paw prints -->
+  <div class="paw" style="left:10%;">🐾</div>
+  <div class="paw" style="left:30%; animation-delay:5s;">🐾</div>
+  <div class="paw" style="left:50%; animation-delay:10s;">🐾</div>
+  <div class="paw" style="left:70%; animation-delay:15s;">🐾</div>
+  <div class="paw" style="left:90%; animation-delay:3s;">🐾</div>
+
+  <header>
+    <h1>Abby's World</h1>
+    <nav>
+      <a href="#about">About Me</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#routine">My Routine</a>
+    </nav>
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </header>
+
+  <section id="about" class="hero">
+    <img src="abby-1.png" alt="Abby the Dog">
+  </section>
+
+  <section class="description">
+    <p>Hi, I'm Abby! I am female and was born in July 2023 and moved since 2023 in a loving home in Karlshorst, Berlin,
+      and I'm a purebred Havanese. I'm gentle
+      and a little shy at first, but I warm up once I get to know you. I enjoy making friends with dogs of a similar
+      size, but big dogs can scare me — sometimes I bark to protect myself.</p>
+    <p>I'm fully house-trained and only go potty outside. Don't worry, I'll always give you clear signals when it's
+      time. I'm spayed, microchipped, and registered. My favorite thing in the whole world? Snuggling up next to my
+      human on the sofa.</p>
+  </section>
+
+  <section id="gallery" class="slideshow-container">
+    <!-- Each slide is now separate -->
+    <div class="mySlides active">
+      <img src="abby-2.jpeg" alt="Abby photo 1">
+    </div>
+    <div class="mySlides">
+      <img src="abby-3.jpeg" alt="Abby photo 2">
+    </div>
+
+    <a class="prev" onclick="plusSlides(-1)">❮</a>
+    <a class="next" onclick="plusSlides(1)">❯</a>
+  </section>
+
+  <div class="dot-container">
+    <span class="dot active" onclick="currentSlide(1)"></span>
+    <span class="dot" onclick="currentSlide(2)"></span>
+    <span class="dot" onclick="currentSlide(3)"></span>
+  </div>
+
+  <section id="routine" class="timeline">
+    <div class="timeline-item left">
+      <div class="timeline-content">
+        <span class="icon">🌅🍲🦮</span>
+        <div>
+          <h3>08:00 – 09:00</h3>
+          <p>Morning walk for my first potty break about 5~10 minutes, followed by breakfast.</p>
+        </div>
+      </div>
+    </div>
+    <div class="timeline-item right">
+      <div class="timeline-content">
+        <span class="icon">🦮</span>
+        <div>
+          <h3>12:00 – 13:00</h3>
+          <p>Time for my second potty break for 15~30 minutes.</p>
+        </div>
+      </div>
+    </div>
+    <div class="timeline-item left">
+      <div class="timeline-content">
+        <span class="icon">🍲</span>
+        <div>
+          <h3>18:00 - 19:00</h3>
+          <p>Dinner time!</p>
+        </div>
+      </div>
+    </div>
+    <div class="timeline-item right">
+      <div class="timeline-content">
+        <span class="icon">🦮🌙</span>
+        <div>
+          <h3>19:30 – 21:00</h3>
+          <p>Evening potty break before bedtime for 10~20 minutes.</p>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <footer>
+      Made with ❤️ for Abby
+    </footer>
+
+    <script>
+      let slideIndex = 1;
+      showSlides(slideIndex);
+
+      function plusSlides(n) {
+        showSlides(slideIndex += n);
+      }
+
+      function currentSlide(n) {
+        showSlides(slideIndex = n);
+      }
+
+      function showSlides(n) {
+        let i;
+        let slides = document.getElementsByClassName("mySlides");
+        let dots = document.getElementsByClassName("dot");
+
+        // Loop back to first slide if past the last
+        if (n > slides.length) {
+          slideIndex = 1;
+        }
+        // Loop to last slide if before the first
+        if (n < 1) {
+          slideIndex = slides.length;
+        }
+
+        // Hide all slides and remove active class
+        for (i = 0; i < slides.length; i++) {
+          slides[i].classList.remove("active");
+        }
+
+        // Remove active class from all dots
+        for (i = 0; i < dots.length; i++) {
+          dots[i].classList.remove("active");
+        }
+
+        // Show current slide and activate corresponding dot
+        if (slides[slideIndex - 1]) {
+          slides[slideIndex - 1].classList.add("active");
+        }
+        if (dots[slideIndex - 1]) {
+          dots[slideIndex - 1].classList.add("active");
+        }
+      }
+
+      // Auto slide every 4 seconds
+      setInterval(() => {
+        plusSlides(1);
+      }, 4000);
+
+      function toggleMenu() {
+        document.querySelector("nav").classList.toggle("active");
+      }
+    </script>
+
+</body>
+
+</html>
